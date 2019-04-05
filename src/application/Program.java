@@ -29,6 +29,9 @@ public class Program {
 		 * 13 - implementar atualização da data
 		 * 14 - imprimindo de novo 'reserva'
 		 * 15 - Aplicar regras de validação (para o programa nao aceitar datas passadas) (datas para validação nao podem ser anteriores a data atual ) 
+		 * 16 - passando//delegando para classe reservation
+		 * 17 - se retornar null é pq nao deu nenhum erro 
+		 * 18 - chamar de novo reservation, mas mandarei retornar isso numa String error
 		 * 
 		 * 
 		 */
@@ -59,24 +62,27 @@ public class Program {
 			checkIn = sdf.parse(sc.next()); //Tira declaração do date, pq as var ja foram declaradas em cima
 			System.out.print("Check-out date (dd/MM/yyyy): ");
 			checkOut = sdf.parse(sc.next());//Tira declaração do date, pq as var ja foram declaradas em cima																			
-			//15
-			Date now = new Date(); //Command = criar uma var com a data de agora 
-			if(checkIn.before(now) || checkOut.before(now)) { //se a data de checkIn for anterios (before) ou (||) se a dataa de checkOut for antes (b) (NOw AGORA == nao posso aceitar
-				System.out.println("Error in reservation: Reservation dates for update must be future dates");
+//			//15
+//			Date now = new Date(); //Command = criar uma var com a data de agora 
+//			if(checkIn.before(now) || checkOut.before(now)) { //se a data de checkIn for anterios (before) ou (||) se a dataa de checkOut for antes (b) (NOw AGORA == nao posso aceitar
+//				System.out.println("Error in reservation: Reservation dates for update must be future dates");
+//			}
+//			else if ( !checkOut.after(checkIn) ) {
+//				System.out.println("Error in reservation: Check-out date must be after check-in date");		
+//			}					 
+//			else {
+			//18
+			String error = reservation.updateDates(checkIn, checkOut); //method responsavel para atualizar sua data 
+			if (error != null) {
+				System.out.println("Error in reservation: " + error );
 			}
-			else if ( !checkOut.after(checkIn) ) {
-				System.out.println("Error in reservation: Check-out date must be after check-in date");		
-			}					 
 			else {
-				reservation.updateDates(checkIn, checkOut); //method responsavel para atualizar sua data 
 				//14
-				System.out.println("Reservation: " + reservation);		
-			}	
+				System.out.println("Reservation: " + reservation);	
+			}
 			
 		}
-		
-		sc.close();
-		
+		sc.close();	
 	}
 
 }

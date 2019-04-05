@@ -37,10 +37,20 @@ public class Reservation {
 		return TimeUnit.DAYS.convert(diff,  TimeUnit.MILLISECONDS); //Fazendo meu método retornar esse valor 
 	}
 	//5
-	public void updateDates (Date checkIn, Date checkOut) { //() = recebendo valores, oq estiver ai dentro
+	public String updateDates (Date checkIn, Date checkOut) { //() = recebendo valores, oq estiver ai dentro
+		//16
+		Date now = new Date(); //Command = criar uma var com a data de agora 
+		if(checkIn.before(now) || checkOut.before(now)) { //se a data de checkIn for anterios (before) ou (||) se a dataa de checkOut for antes (b) (NOw AGORA == nao posso aceitar
+			return "Error in reservation: Reservation dates for update must be future dates";
+		}																									
+		if ( !checkOut.after(checkIn) ) {
+			return "Error in reservation: Check-out date must be after check-in date";		
+		}																									 
 		//6
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
+		//17
+		return null; //se retornar nulo é pq nao deu nenhum erro
 	}
 	//7
 	@Override 
@@ -54,14 +64,7 @@ public class Reservation {
 			+ sdf.format(checkOut)
 			+ ", "
 			+ duration() 
-			+ " nights";
-				
+			+ " nights";	
 	}
-	
-	
-	
-	
-	
-	
 	
 }
